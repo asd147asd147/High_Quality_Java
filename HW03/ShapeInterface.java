@@ -1,4 +1,4 @@
-package hw3;
+package hw03;
 /**
 Interface for simple shapes drawn on
 the screen using keyboard characters.

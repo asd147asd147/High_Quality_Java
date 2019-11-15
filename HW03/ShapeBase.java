@@ -1,4 +1,4 @@
-package hw3;
+package hw03;
 /**
 Abstract base class for drawing simple shapes on the screen
 using characters.

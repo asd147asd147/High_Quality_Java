@@ -1,63 +1,66 @@
 package hw03;
 
-public class RightArrow extends ShapeBase {
+public class LeftArrow extends ShapeBase {
 	private int tail;
 	private int width;
 	
 	public void drawHere() {
-		int arrowhead = 0;
+		int arrowhead = getOffset();
+		int headjump = 1;
 		for(int i = 0; i < width/2; i++) {
-			space(getOffset());
+			space(arrowhead);
 			System.out.print("*");
-			if(arrowhead != 0) {
-				space(arrowhead);
+			if(arrowhead != getOffset()) {
+				space(headjump);
 				System.out.println("*");
-				arrowhead++;
+				headjump += 2;
 			}
 			else {
 				System.out.println("");
 			}
-			arrowhead++;
+			arrowhead-=2;
 		}
-		for(int i = 0; i < tail; ++i) {
+		System.out.print("*");
+		space(headjump);
+		for(int i = 0; i < tail; i++) {
 			System.out.print("*");
 		}
-		space(arrowhead);
-		arrowhead -=2;
-		System.out.println("*");
+		arrowhead+=2;
+		System.out.println("");
 		for(int i = 0; i < width/2; i++) {
-			space(getOffset());
+			space(arrowhead);
 			System.out.print("*");
-			if(arrowhead != -1) {
-				space(arrowhead);
-				System.out.println("*");
-				arrowhead--;
+			if(arrowhead != getOffset()) {
+				headjump -= 2;
+				space(headjump);
+				System.out.println("*");				
 			}
 			else {
 				System.out.println("");
 			}
-			arrowhead--;
+			arrowhead+=2;
 		}
 	}
-	public RightArrow() {
+	public LeftArrow() {
 		tail = 5;
 		width = 3;
-		setOffset(tail-1);
+		setOffset(width-1);
 	}
-	public RightArrow(int theTail, int theWidth) {
+	public LeftArrow(int theTail, int theWidth) {
 		if(theWidth>= 3 && theWidth%2 == 1) {
 			tail = theTail;
 			width = theWidth;
-			setOffset(theTail-1);
+			setOffset(theWidth-1);
 		}
 	}
 	public void setWidth(int theWidth) {
-		if(theWidth>= 3 && theWidth%2 == 1)
+		if(theWidth>= 3 && theWidth%2 == 1) {
 			width = theWidth;
+			setOffset(theWidth-1);
+		}
 	}
 	public void setTail(int theTail) {
 		tail = theTail;
-		setOffset(tail-1);
 	}
 	
 	private void space(int step) {
@@ -66,7 +69,7 @@ public class RightArrow extends ShapeBase {
 	}
 	
 	public static void main(String[] args) {
-		RightArrow arrow1 = new RightArrow();
+		LeftArrow arrow1 = new LeftArrow();
 		arrow1.drawHere();
 		arrow1.setTail(16);
 		arrow1.setWidth(7);
