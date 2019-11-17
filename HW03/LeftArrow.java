@@ -1,16 +1,17 @@
 package hw03;
 
-public class LeftArrow extends ShapeBase {
+public class LeftArrow extends ShapeBase implements ShapeInterface{
 	private int tail;
 	private int width;
+	private int base;
 	
 	public void drawHere() {
-		int arrowhead = getOffset();
+		int arrowhead = base+getOffset();
 		int headjump = 1;
 		for(int i = 0; i < width/2; i++) {
 			space(arrowhead);
 			System.out.print("*");
-			if(arrowhead != getOffset()) {
+			if(arrowhead != base + getOffset()) {
 				space(headjump);
 				System.out.println("*");
 				headjump += 2;
@@ -20,6 +21,7 @@ public class LeftArrow extends ShapeBase {
 			}
 			arrowhead-=2;
 		}
+		space(getOffset());
 		System.out.print("*");
 		space(headjump);
 		for(int i = 0; i < tail; i++) {
@@ -30,7 +32,7 @@ public class LeftArrow extends ShapeBase {
 		for(int i = 0; i < width/2; i++) {
 			space(arrowhead);
 			System.out.print("*");
-			if(arrowhead != getOffset()) {
+			if(arrowhead != base + getOffset()) {
 				headjump -= 2;
 				space(headjump);
 				System.out.println("*");				
@@ -41,38 +43,34 @@ public class LeftArrow extends ShapeBase {
 			arrowhead+=2;
 		}
 	}
-	public LeftArrow() {
-		tail = 5;
-		width = 3;
-		setOffset(width-1);
-	}
-	public LeftArrow(int theTail, int theWidth) {
+
+	public LeftArrow(int theTail, int theWidth, int offset) {
 		if(theWidth>= 3 && theWidth%2 == 1) {
 			tail = theTail;
 			width = theWidth;
-			setOffset(theWidth-1);
+			base = theWidth-1;
+			setOffset(offset);
+		}
+		else {
+			tail = theTail;
+			width = theWidth+1;
+			base = width-1;
+			setOffset(offset);
+			System.out.println("Width is "+theWidth+" -> " + width);
 		}
 	}
-	public void setWidth(int theWidth) {
-		if(theWidth>= 3 && theWidth%2 == 1) {
-			width = theWidth;
-			setOffset(theWidth-1);
-		}
-	}
-	public void setTail(int theTail) {
-		tail = theTail;
-	}
-	
+
 	private void space(int step) {
 		for(int i = 0; i < step; i++)
 			System.out.print(" ");
 	}
 	
 	public static void main(String[] args) {
-		LeftArrow arrow1 = new LeftArrow();
+		ShapeInterface arrow1 = new LeftArrow(5,4,0);
 		arrow1.drawHere();
-		arrow1.setTail(16);
-		arrow1.setWidth(7);
-		arrow1.drawAt(3);
+		ShapeInterface arrow2 = new LeftArrow(16,7,5);
+		arrow2.drawAt(2);
+		ShapeInterface arrow3 = new LeftArrow(10,9,2);
+		arrow3.drawAt(3);
 	}
 }
